@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #e49cc5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #333;
+    margin-top: 20px;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+p {
+    color: #0d0101;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    padding: 10px;
+    width: 70px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+</style>
+<body>
+    <h1>{{ product.name }}</h1>
+    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+    <p>{{ product.description }}</p>
+    <p>Price: ₹{{ product.price }}</p>
+    <form action="{{ url_for('add_to_cart_route') }}" method="POST">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Add to Cart</button>
+    </form>
+    <form action="{{ url_for('buy_now', product_id=product.id) }}" method="POST">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Buy Now</button>
+    </form>
+</body>
+</html>
